@@ -6,7 +6,7 @@
 /*   By: rarodrig < rarodrig@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 16:58:08 by rarodrig          #+#    #+#             */
-/*   Updated: 2021/10/24 20:25:58 by rarodrig         ###   ########.fr       */
+/*   Updated: 2021/10/27 21:42:42 by rarodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,45 @@ void swap_stacks_f(t_stack **s_dst, t_stack **s_src)
 	dell_first(s_src);
 	return;
 
+}
+
+void rotate(t_stack **stack)
+{
+    t_stack *aux;
+    t_stack *last;
+    t_stack *tmp;
+
+    aux = (*stack)->next;
+    tmp = aux;
+    last = *stack;
+
+    last->next = NULL;
+    while (aux->next)
+        aux = aux->next;
+    aux->next = last;
+    *stack = tmp;
+}
+
+void rotate_r(t_stack **stack)
+{
+    t_stack *aux;
+    t_stack *last;
+    t_stack *tmp;
+
+    aux = *stack;
+    tmp = aux;
+
+    while (aux->next->next)
+        aux = aux->next;
+    last = aux->next;
+    aux->next = NULL;
+    last->next = NULL;
+    last->next = tmp;
+    *stack = last;
+}
+
+void swap_rrr(t_stack **stack_a,t_stack **stack_b)
+{
+    swap_rra(stack_a);
+    swap_rrb(stack_b);
 }

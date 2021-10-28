@@ -6,15 +6,15 @@
 /*   By: rarodrig < rarodrig@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 21:59:42 by rarodrig          #+#    #+#             */
-/*   Updated: 2021/10/24 20:34:01 by rarodrig         ###   ########.fr       */
+/*   Updated: 2021/10/27 20:02:12 by rarodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void swap_sa_sb(t_stack **stack, t_swap *swap)
+void swap_sb(t_stack **stack, t_swap *swap)
 {
-    if (swap->size_a <= 1 || swap->size_b <= 1)
+    if (swap->size_b <= 1)
         return;
     t_stack *tmp;
     t_stack *aux;
@@ -25,6 +25,23 @@ void swap_sa_sb(t_stack **stack, t_swap *swap)
     tmp->num = aux->num;
     aux->num = aux->next->num;
     aux->next->num = tmp->num;
+    write(1, "sb\n",3);
+}
+
+void swap_sa(t_stack **stack, t_swap *swap)
+{
+    if (swap->size_a <= 1)
+        return;
+    t_stack *tmp;
+    t_stack *aux;
+    tmp = new_node();
+    aux = new_node();
+
+    aux = *stack;
+    tmp->num = aux->num;
+    aux->num = aux->next->num;
+    aux->next->num = tmp->num;
+    write(1, "sa\n",3);
 }
 
 void swap_ss(t_stack **stack_a, t_stack **stack_b, t_swap *swap)
@@ -34,6 +51,7 @@ void swap_ss(t_stack **stack_a, t_stack **stack_b, t_swap *swap)
 
     swap_first(stack_a);
     swap_first(stack_b);
+    write(1, "ss\n",3);
 }
 
 void swap_pa(t_stack **stack_a, t_stack **stack_b, t_swap *swap)
@@ -51,6 +69,7 @@ void swap_pa(t_stack **stack_a, t_stack **stack_b, t_swap *swap)
         swap->size_b--;
 	    swap->first_a = 0;
         free(aux);
+        write(1, "pa\n",3);
        return;
     }
     else
@@ -62,6 +81,7 @@ void swap_pa(t_stack **stack_a, t_stack **stack_b, t_swap *swap)
         swap->size_b--;
         swap->size_a++;
     }
+    write(1, "pa\n",3);
 }
 
 void swap_pb(t_stack **stack_b, t_stack **stack_a, t_swap *swap)
@@ -79,7 +99,8 @@ void swap_pb(t_stack **stack_b, t_stack **stack_a, t_swap *swap)
         swap->size_a--;
 	    swap->first_b = 0;
         free(aux);
-       return;
+        write(1, "pb\n",3);
+        return;
     }
     else
     {
@@ -90,6 +111,7 @@ void swap_pb(t_stack **stack_b, t_stack **stack_a, t_swap *swap)
         swap->size_b++;
         swap->size_a--;
     }
+    write(1, "pb\n",3);
 }
 
 void	dell_first(t_stack **stack)

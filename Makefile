@@ -6,7 +6,7 @@
 #    By: rarodrig < rarodrig@student.42sp.org.br    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 20:49:54 by rarodrig          #+#    #+#              #
-#    Updated: 2021/10/23 17:18:21 by rarodrig         ###   ########.fr        #
+#    Updated: 2021/10/27 22:04:18 by rarodrig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,10 @@ PATH_OBJ = ./obj/
 PATH_SRC = ./src/
 PATH_UTILS = ./utils/
 PATH_LIBFT = ./includes/42_libft/
+PATH_SORT_SMALL = ./sort_small/
 
 FILE = $(PATH_SRC)main.c $(PATH_UTILS)swaps.c $(PATH_UTILS)utils.c\
+	$(PATH_UTILS)swaps_2.c $(PATH_SORT_SMALL)sort_small.c\
 
 LIBFT = $(PATH_LIBFT)libft.a
 CC = clang
