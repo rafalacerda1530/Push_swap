@@ -6,7 +6,7 @@
 /*   By: rarodrig < rarodrig@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:48:38 by rarodrig          #+#    #+#             */
-/*   Updated: 2021/10/27 21:42:58 by rarodrig         ###   ########.fr       */
+/*   Updated: 2021/11/06 00:00:54 by rarodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int initialize_stack(t_stack **stack, char **argv)
     char **splitted;
     int size_split;
     int check;
+    unsigned int teste;
     int i;
 
     aux = *stack;
@@ -84,6 +85,12 @@ int initialize_stack(t_stack **stack, char **argv)
         splitted = ft_split(argv[i], ' '); 
         while(*splitted)
         {
+            //AJUSTAR VALOR DE MAX INT
+            if ((long int)ft_atoi((char *) *splitted) > INT_MAX)
+            {
+                write(1, "Error", 5);
+                exit(0);
+            }
             check_double(*stack, ft_atoi((char *) *splitted));
             aux->num = ft_atoi((char *) *splitted);
             if (check >= size_split)
@@ -103,26 +110,24 @@ int main (int argc, char **argv)
     t_swap swap;
 
     argc += 0;
-    swap.size_a = 1;
+    swap.first_position = 0;
+    swap.second_position = 0;
+    swap.cont_chunk = 0;
+    swap.size_a = 0;
+    swap.mov = 0;
     swap.size_b = 1;
     swap.first_a = 1;
+    swap.max = 0;
+    swap.hold_second = 0;
     swap.first_b = 1;
     swap.stack_a = new_node();
     swap.stack_b = new_node();
     swap.size_a =  initialize_stack(&swap.stack_a, argv);
 
-    if (argc - 1 < 5)
+    if (argc - 1 <= 5)
         sort_small(&swap.stack_a, &swap.stack_b, &swap);
-    //swap_rra(&swap.stack_a);
-    while (swap.stack_a)
-    {
-        printf("stack a = %d\n", swap.stack_a->num);
-        swap.stack_a = swap.stack_a->next;
-    }
-    while (swap.stack_b)
-    {
-        printf("stack b = %d\n", swap.stack_b->num);
-        swap.stack_b = swap.stack_b->next;
-    }
+    else
+        sort_big(&swap.stack_a, &swap.stack_b, &swap);
+
     return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: rarodrig < rarodrig@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 16:58:08 by rarodrig          #+#    #+#             */
-/*   Updated: 2021/10/27 21:42:42 by rarodrig         ###   ########.fr       */
+/*   Updated: 2021/11/01 20:53:34 by rarodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void swap_first(t_stack **stack)
+void swap_first(t_stack **stack, t_swap *swap)
 {
 	t_stack *tmp;
     t_stack *aux;
@@ -24,9 +24,10 @@ void swap_first(t_stack **stack)
     tmp->num = aux->num;
     aux->num = aux->next->num;
     aux->next->num = tmp->num;
+    swap->mov++;
 }
 
-void swap_stacks_f(t_stack **s_dst, t_stack **s_src)
+void swap_stacks_f(t_stack **s_dst, t_stack **s_src, t_swap *swap)
 {
 	t_stack *aux;
     t_stack *tmp;
@@ -35,11 +36,12 @@ void swap_stacks_f(t_stack **s_dst, t_stack **s_src)
     aux = new_node();
 	tmp->num = (*s_src)->num;
 	dell_first(s_src);
+    swap->mov++;
 	return;
 
 }
 
-void rotate(t_stack **stack)
+void rotate(t_stack **stack, t_swap *swap)
 {
     t_stack *aux;
     t_stack *last;
@@ -54,9 +56,10 @@ void rotate(t_stack **stack)
         aux = aux->next;
     aux->next = last;
     *stack = tmp;
+    swap->mov++;
 }
 
-void rotate_r(t_stack **stack)
+void rotate_r(t_stack **stack, t_swap *swap)
 {
     t_stack *aux;
     t_stack *last;
@@ -72,10 +75,11 @@ void rotate_r(t_stack **stack)
     last->next = NULL;
     last->next = tmp;
     *stack = last;
+    swap->mov++;
 }
 
-void swap_rrr(t_stack **stack_a,t_stack **stack_b)
+void swap_rrr(t_stack **stack_a,t_stack **stack_b, t_swap *swap)
 {
-    swap_rra(stack_a);
-    swap_rrb(stack_b);
+    swap_rra(stack_a, swap);
+    swap_rrb(stack_b, swap);
 }

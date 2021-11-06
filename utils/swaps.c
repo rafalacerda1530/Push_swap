@@ -6,7 +6,7 @@
 /*   By: rarodrig < rarodrig@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 21:59:42 by rarodrig          #+#    #+#             */
-/*   Updated: 2021/10/27 20:02:12 by rarodrig         ###   ########.fr       */
+/*   Updated: 2021/11/05 23:06:01 by rarodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void swap_sb(t_stack **stack, t_swap *swap)
     tmp->num = aux->num;
     aux->num = aux->next->num;
     aux->next->num = tmp->num;
+    swap->mov++;
     write(1, "sb\n",3);
 }
 
@@ -41,6 +42,7 @@ void swap_sa(t_stack **stack, t_swap *swap)
     tmp->num = aux->num;
     aux->num = aux->next->num;
     aux->next->num = tmp->num;
+    swap->mov++;
     write(1, "sa\n",3);
 }
 
@@ -49,8 +51,8 @@ void swap_ss(t_stack **stack_a, t_stack **stack_b, t_swap *swap)
     if (swap->size_a <= 1 || swap->size_b <= 1)
         return;
 
-    swap_first(stack_a);
-    swap_first(stack_b);
+    swap_first(stack_a, swap);
+    swap_first(stack_b, swap);
     write(1, "ss\n",3);
 }
 
@@ -62,25 +64,22 @@ void swap_pa(t_stack **stack_a, t_stack **stack_b, t_swap *swap)
     if (swap->size_b == 0)
         return;
     tmp = *stack_a;
-    aux = new_node();
     if (swap->first_a)
     {
-        swap_stacks_f(stack_a, stack_b);
-        swap->size_b--;
-	    swap->first_a = 0;
-        free(aux);
-        write(1, "pa\n",3);
-       return;
-    }
-    else
-    {
-        aux->num = (*stack_b)->num;
-        aux->next = tmp;
-        *stack_a = aux;
+        tmp->num = (*stack_b)->num;
         dell_first(stack_b);
-        swap->size_b--;
-        swap->size_a++;
+        swap->first_a = 0;
+        write(1, "pa\n",3);
+        return;
     }
+    aux = new_node();
+    aux->num = (*stack_b)->num;
+    aux->next = tmp;
+    *stack_a = aux;
+    dell_first(stack_b);
+    swap->size_b--;
+    swap->size_a++;
+    swap->mov++;
     write(1, "pa\n",3);
 }
 
@@ -95,9 +94,10 @@ void swap_pb(t_stack **stack_b, t_stack **stack_a, t_swap *swap)
     aux = new_node();
     if (swap->first_b)
     {
-        swap_stacks_f(stack_b, stack_a);
+        swap_stacks_f(stack_b, stack_a, swap);
         swap->size_a--;
 	    swap->first_b = 0;
+        swap->size_b++;
         free(aux);
         write(1, "pb\n",3);
         return;
@@ -110,6 +110,7 @@ void swap_pb(t_stack **stack_b, t_stack **stack_a, t_swap *swap)
         dell_first(stack_a);
         swap->size_b++;
         swap->size_a--;
+        swap->mov++;
     }
     write(1, "pb\n",3);
 }

@@ -6,7 +6,7 @@
 #    By: rarodrig < rarodrig@student.42sp.org.br    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 20:49:54 by rarodrig          #+#    #+#              #
-#    Updated: 2021/10/27 22:04:18 by rarodrig         ###   ########.fr        #
+#    Updated: 2021/11/05 21:42:41 by rarodrig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,15 @@ PATH_SRC = ./src/
 PATH_UTILS = ./utils/
 PATH_LIBFT = ./includes/42_libft/
 PATH_SORT_SMALL = ./sort_small/
+PATH_SORT_BIG = ./sort_big/
 
 FILE = $(PATH_SRC)main.c $(PATH_UTILS)swaps.c $(PATH_UTILS)utils.c\
-	$(PATH_UTILS)swaps_2.c $(PATH_SORT_SMALL)sort_small.c\
+	$(PATH_UTILS)swaps_2.c $(PATH_SORT_SMALL)sort_small.c $(PATH_SORT_SMALL)utils_sort.c\
+	$(PATH_SORT_BIG)sort_big.c $(PATH_SORT_BIG)sort_big_utils.c\
 
 LIBFT = $(PATH_LIBFT)libft.a
 CC = clang
-CFLAGS = -Wextra -Werror -Wall
+CFLAGS = 
 RM = rm -rf
 
 OBJ = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(FILE)) 
@@ -32,11 +34,11 @@ all: make_libft $(NAME)
 
 $(NAME): $(OBJ)
 	@echo done!!
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o push_swap
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -g -o push_swap
 
 $(PATH_OBJ)%.o: $(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJ)
-	$(CC) $(CFLAGS) -I. -c $< -o $@
+	$(CC) $(CFLAGS) -g -I. -c $< -o $@
 
 make_libft:
 	@make -C $(PATH_LIBFT)
