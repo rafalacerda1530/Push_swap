@@ -6,9 +6,10 @@
 #    By: rarodrig < rarodrig@student.42sp.org.br    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 20:49:54 by rarodrig          #+#    #+#              #
-#    Updated: 2021/11/05 21:42:41 by rarodrig         ###   ########.fr        #
+#    Updated: 2021/11/10 11:35:55 by rarodrig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 PATH_OBJ = ./obj/
 PATH_SRC = ./src/
@@ -17,14 +18,15 @@ PATH_LIBFT = ./includes/42_libft/
 PATH_SORT_SMALL = ./sort_small/
 PATH_SORT_BIG = ./sort_big/
 
-FILE = $(PATH_SRC)main.c $(PATH_UTILS)swaps.c $(PATH_UTILS)utils.c\
-	$(PATH_UTILS)swaps_2.c $(PATH_SORT_SMALL)sort_small.c $(PATH_SORT_SMALL)utils_sort.c\
-	$(PATH_SORT_BIG)sort_big.c $(PATH_SORT_BIG)sort_big_utils.c\
+FILE = $(PATH_SRC)main.c $(PATH_SRC)utils_main.c $(PATH_UTILS)swaps.c $(PATH_UTILS)utils.c\
+	$(PATH_UTILS)utils_2.c $(PATH_UTILS)swaps_2.c $(PATH_SORT_SMALL)sort_small.c $(PATH_SORT_SMALL)utils_sort.c\
+	$(PATH_SORT_SMALL)utils_small.c $(PATH_SORT_BIG)sort_big.c $(PATH_SORT_BIG)sort_big_utils.c $(PATH_SORT_BIG)utils_big.c\
 
 LIBFT = $(PATH_LIBFT)libft.a
 CC = clang
-CFLAGS = 
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
+LEAK = -fsanitize=address
 
 OBJ = $(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(FILE)) 
 
@@ -34,7 +36,7 @@ all: make_libft $(NAME)
 
 $(NAME): $(OBJ)
 	@echo done!!
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -g -o push_swap
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LEAK) -g -o push_swap
 
 $(PATH_OBJ)%.o: $(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJ)
