@@ -8,9 +8,9 @@ A sorting algorithm with specific moves
 push swap performs the ordering from lowest to highest according to the moves below and between two stacks, "a & b"
 
 instruction
-description
-sa
-Swap A - swap the first 2 elements at the top of stack A.
+description<b>
+sa<b>
+Swap A - swap the first 2 elements at the top of stack A.<b>
 sb
 Swap B - swap the first 2 elements at the top of stack B.
 pa
